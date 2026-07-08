@@ -1,0 +1,45 @@
+import threading
+
+def DisplayPrime(Numbers):
+    Prime =list()
+    for i in Numbers:
+        if(i > 1):
+            for p in range(2,int(i/2)+1):
+                if(i%p == 0):
+                    break
+            else:
+                Prime.append(i)
+    #return Prime
+    print("---Prime",Prime)
+
+def DisplayNonPrime(Numbers):
+    NonPrime= list()
+
+    for i in Numbers:
+        if(i > 1):
+            for p in range(2,int(i/2)+1):
+                if(i%p == 0):
+                    NonPrime.append(i)
+                    break
+
+        else:
+            NonPrime.append(i)        
+
+    #return NonPrime 
+    print("NonPrime---",NonPrime)                   
+
+
+def main():
+    numbers= list(map(int,input("enter list of elements").split()))
+    t1= threading.Thread(target=DisplayPrime,args=(numbers,),name="PrimeThread")
+    t2= threading.Thread(target=DisplayNonPrime,args=(numbers,),name="NonPrimeThread")
+    
+    t1.start()
+    t2.start()
+
+    t1.join()
+    t2.join()
+    
+
+if __name__ == "__main__":
+    main()
